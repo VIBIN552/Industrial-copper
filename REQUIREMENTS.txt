@@ -1,0 +1,25 @@
+The packages used for data processing are
+
+1. pandas
+2. numpy
+3. scipy
+4. seaborn
+5. matplotlib
+
+The packages used for building regression model to predict selling price
+
+1. sklearn
+2. numpy
+3. xgboost
+4. pickle
+
+The packages used for building classifier model for predicting the status
+
+1. sklearn
+2. xgboost
+3. imblearn
+
+The packages used for running streamlit
+
+1. streamlit
+2. streamlit_option_menu
