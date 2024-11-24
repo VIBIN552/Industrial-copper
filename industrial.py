@@ -4,10 +4,12 @@ from streamlit_option_menu import option_menu
 import numpy as np
 import pickle
 
-#set up page configuration for streamlit
 
-st.set_page_config(layout="wide")
-st.title("INDUSTRIAL COPPER MOLDING")
+#set up page configuration for streamlit
+icon='https://st2.depositphotos.com/1000128/7250/i/450/depositphotos_72503649-stock-photo-copper-pipes.jpg'
+st.set_page_config(page_title='Industrial copper',page_icon=icon,initial_sidebar_state='expanded',
+                        layout='wide',menu_items={"about":'This streamlit application was developed by M.Gokul'})
+
 
 #set up the sidebar with optionmenu
 with st.sidebar:
@@ -49,9 +51,14 @@ if selected == 'Get Prediction':
     select=option_menu('',options=["Selling Price","Status"],
                                     icons=["cash", "toggles"],
                                     orientation='horizontal',)
-    
-    # creted form to get the user input 
-    with st.form('prediction'):
+
+
+    if select == 'Selling Price':
+        st.markdown("<h5 style=color:grey>To predict the selling price of copper, please provide the following information:",unsafe_allow_html=True)
+        st.write('')
+
+        # creted form to get the user input 
+        with st.form('prediction'):
             col1,col2=st.columns(2)
             with col1:
 
@@ -82,8 +89,8 @@ if selected == 'Get Prediction':
                 st.markdown('<br>', unsafe_allow_html=True)
                 
                 button=st.form_submit_button('PREDICT',use_container_width=True)
-                
-    if button:
+
+        if button:
             #check whether user fill all required fields
             if not all([item_date, delivery_date, country, item_type, application, product_ref,
                         customer, status, quantity, width, thickness]):
@@ -115,6 +122,7 @@ if selected == 'Get Prediction':
                 #display the predicted selling price 
                 st.subheader(f":green[Predicted Selling Price :] {selling_price:.2f}") 
                 st.balloons()
+
     if select == 'Status':
         st.markdown("<h5 style=color:grey;>To predict the status of copper, please provide the following information:",unsafe_allow_html=True)
         st.write('')
@@ -151,8 +159,8 @@ if selected == 'Get Prediction':
                 st.markdown('<br>', unsafe_allow_html=True)
                 
                 button=st.form_submit_button('PREDICT',use_container_width=True)
-                
-    if button:
+
+        if button:
             #check whether user fill all required fields
             if not all([item_date, delivery_date, country, item_type, application, product_ref,
                         customer,quantity, width, thickness,selling_price]):
@@ -183,8 +191,9 @@ if selected == 'Get Prediction':
                     st.subheader(f":green[Status of the copper : ] Won")
 
                 else:
-                    st.subheader(f":red[Status of the copper :] Lost")    
-                    
+                    st.subheader(f":red[Status of the copper :] Lost")
+
+
 # set up the information for 'Home' menu
 if selected == 'Home':
     title_text = '''<h1 style='font-size: 30px;text-align: center; color:grey;'>INDUSTRIAL COPPER</h1>'''
@@ -208,15 +217,6 @@ if selected == 'Home':
                 - Construction: 25% <br>
                 - Transport: 7% <br>
                 - Other: 3% ''',unsafe_allow_html=True)
-    with st.container():
-        with st.expander(':blue[***Electrical Copper***]'):
-            st.markdown('''<h6 style='color:grey;font-size:18px'>Copper is used in virtually all electrical wiring (except for power lines, 
-                        which are made with aluminum) because it is the second most electrically conductive metal aside from silver 
-                        which is much more expensive. In addition to being widely available and inexpensive, it is malleable and easy to
-                        stretch out into very thin, flexible but strong wires, making it ideal to use in electrical infrastructure.<br>Aside from 
-                        electrical wiring,copper is also used in heating elements, motors, renewable energy, internet lines, and electronics.
-                        ''',unsafe_allow_html=True)     
-            
     with st.container():
         with st.expander(':blue[***Electrical Copper***]'):
             st.markdown('''<h6 style='color:grey;font-size:18px'>Copper is used in virtually all electrical wiring (except for power lines, 
@@ -248,6 +248,7 @@ if selected == 'Home':
                         80 tons of copper, which gives her the characteristic pale green patina. Due to its antimicrobial properties, copper is also starting 
                         to gain popularity for high-touch items such as faucets, doorknobs, latches, railings, counters, hooks, handles, and other public 
                         surfaces that tend to gather a lot of germs.''',unsafe_allow_html=True)
+
     st.link_button('More about copper',url='https://en.wikipedia.org/wiki/Copper')
 
     col1,col2=st.columns(2)
@@ -285,4 +286,4 @@ if selected == "About":
                 <li>Predicted selling price and status based on user input.''',unsafe_allow_html=True)
     st.subheader(':blue[About :]')
     st.markdown('''**Hello! I'm Vibin, a EEE graduate with a keen interest in data science and analytics.
-                Currently on an exciting journey into the world of data science...**''')                           
+                Currently on an exciting journey into the world of data science...**''')
